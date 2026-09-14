@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuliner Khas Nusantara - Pemesanan Online</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            outline: none;
+        }
+
+        :root {
+            --bg-body: #F4F5F7;
+            --primary: #D35400;
+            --primary-dark: #A04000;
+            --card-bg: #FFFFFF;
+            --text-dark: #1E272E;
+            --text-muted: #666666;
+            --wa-green: #25D366;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            min-height: 100vh;
+            padding-bottom: 120px;
+        }
+
+        .container {
+            max-width: 550px;
+            margin: 0 auto;
+            padding: 20px 16px;
+        }
+
+        /* HEADER JUDUL */
+        .hero-header {
+            background: linear-gradient(135deg, #2C3E50 0%, #1E272E 100%);
+            border-radius: 24px;
+            padding: 22px;
+            color: white;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-header::after {
+            content: '';
+            position: absolute;
+            right: -20px;
+            bottom: -20px;
+            width: 120px;
+            height: 120px;
+            background: rgba(211, 84, 0, 0.2);
+            border-radius: 50%;
+        }
+
+        .badge-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(5px);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: #FFB142;
+            margin-bottom: 8px;
+        }
+
+        .hero-header h1 {
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 6px;
+        }
+
+        .hero-header p {
+            font-size: 13px;
+            color: #DCDDE1;
+            line-height: 1.4;
+        }
+
+        /* SEARCH BAR */
+        .search-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px 18px 14px 46px;
+            border-radius: 16px;
+            border: 1px solid #E4E7EB;
+            background: #FFFFFF;
+            font-size: 14px;
+            color: var(--text-dark);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            transition: 0.3s;
+        }
+
+        .search-box input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 4px 15px rgba(211, 84, 0, 0.15);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            color: #A0A0A0;
+        }
+
+        /* FOOD CARD LIST */
+        .food-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.04);
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #EFEFEF;
+        }
+
+        .card-img-wrapper {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+            background-color: #eee;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-category {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .card-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-bottom: 14px;
+        }
+
+        .card-footer {
+            margin-top: auto;
+            padding-top: 12px;
+            border-top: 1px dashed #EFEFEF;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-price {
+            font-size: 17px;
+            font-weight: 800;
+            color: #27AE60;
+        }
+
+        .action-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-direct-buy {
+            background: #E8F5E9;
+            color: #2E7D32;
+            border: 1px solid #A5D6A7;
+            padding: 8px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+
+        .btn-direct-buy:active {
+            transform: scale(0.95);
+            background: #C8E6C9;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            background: #F1F2F6;
+            border-radius: 12px;
+            padding: 3px;
+            gap: 6px;
+        }
+
+        .btn-qty {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
+            border: none;
+            background: white;
+            color: var(--text-dark);
+            font-weight: bold;
+            font-size: 13px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .btn-qty:active {
+            transform: scale(0.9);
+        }
+
+        .btn-qty.plus {
+            background: var(--primary);
+            color: white;
+        }
+
+        .qty-val {
+            font-size: 13px;
+            font-weight: 700;
+            min-width: 18px;
+            text-align: center;
+        }
+
+        /* FLOATING CART BAR */
+        .cart-bar {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 32px);
+            max-width: 500px;
+            background: #1E272E;
+            border-radius: 20px;
+            padding: 12px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+            z-index: 9999;
+        }
+
+        .cart-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+        }
+
+        .cart-icon {
+            width: 42px;
+            height: 42px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #FFB142;
+            position: relative;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #E74C3C;
+            color: white;
+            font-size: 10px;
+            font-weight: 800;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cart-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .cart-count-text {
+            font-size: 11px;
+            color: #A4B0BE;
+        }
+
+        .cart-total-price {
+            font-size: 16px;
+            font-weight: 800;
+            color: #2ECC71;
+        }
+
+        .btn-checkout-multi {
+            background: var(--wa-green);
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .btn-checkout-multi:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- HEADER UTAMA -->
+        <header class="hero-header">
+            <div class="badge-tag"><i class="fa-solid fa-store"></i> Kedai Kuliner Khas</div>
+            <h1>Pesan Makanan & Minuman</h1>
+            <p>Pilih menu favorit Anda. Bisa langsung beli 1 produk atau pilih beberapa sekaligus!</p>
+        </header>
+
+        <!-- SEARCH BOX -->
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" id="searchInput" placeholder="Cari makanan atau minuman...">
+        </div>
+
+        <!-- LIST MENU -->
+        <div class="food-list">
+            
+            <!-- MENU 1: KRECO -->
+            <div class="card" data-name="Kreco Pedas Gurih" data-price="8000">
+                <div class="card-img-wrapper">
+                    <img src="kreco.jpg" alt="Kreco Pedas Gurih" class="card-img">
+                </div>
+                <div class="card-body">
+                    <span class="card-category">Makanan</span>
+                    <h2 class="card-title">Kreco Pedas Gurih</h2>
+                    <p class="card-desc">Keong sawah olahan bumbu kuning rempah gurih pedas meresap.</p>
+                    <div class="card-footer">
+                        <span class="card-price">Rp 8.000</span>
+                        <div class="action-group">
+                            <button class="btn-direct-buy" onclick="checkoutSingleProduct('Kreco Pedas Gurih', 8000)">
+                                <i class="fa-brands fa-whatsapp"></i> Beli 1
+                            </button>
+                            <div class="quantity-control">
+                                <button class="btn-qty minus" onclick="updateQty(this, -1)"><i class="fa-solid fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="btn-qty plus" onclick="updateQty(this, 1)"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MENU 2: NASI PECEL -->
+            <div class="card" data-name="Nasi Pecel Lengkap" data-price="10000">
+                <div class="card-img-wrapper">
+                    <img src="pecel.jpg" alt="Nasi Pecel Lengkap" class="card-img">
+                </div>
+                <div class="card-body">
+                    <span class="card-category">Makanan</span>
+                    <h2 class="card-title">Nasi Pecel Lengkap</h2>
+                    <p class="card-desc">Sayuran segar disiram bumbu kacang khas pedas mantap dengan sate usus & peyek.</p>
+                    <div class="card-footer">
+                        <span class="card-price">Rp 10.000</span>
+                        <div class="action-group">
+                            <button class="btn-direct-buy" onclick="checkoutSingleProduct('Nasi Pecel Lengkap', 10000)">
+                                <i class="fa-brands fa-whatsapp"></i> Beli 1
+                            </button>
+                            <div class="quantity-control">
+                                <button class="btn-qty minus" onclick="updateQty(this, -1)"><i class="fa-solid fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="btn-qty plus" onclick="updateQty(this, 1)"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MENU 3: ES JANGELAN -->
+            <div class="card" data-name="Es Jangelan Segar" data-price="5000">
+                <div class="card-img-wrapper">
+                    <img src="es.jpg" alt="Es Jangelan Segar" class="card-img">
+                </div>
+                <div class="card-body">
+                    <span class="card-category">Minuman</span>
+                    <h2 class="card-title">Es Jangelan Segar</h2>
+                    <p class="card-desc">Cincau hitam alami disajikan dingin dengan sirup gula merah manis segar.</p>
+                    <div class="card-footer">
+                        <span class="card-price">Rp 5.000</span>
+                        <div class="action-group">
+                            <button class="btn-direct-buy" onclick="checkoutSingleProduct('Es Jangelan Segar', 5000)">
+                                <i class="fa-brands fa-whatsapp"></i> Beli 1
+                            </button>
+                            <div class="quantity-control">
+                                <button class="btn-qty minus" onclick="updateQty(this, -1)"><i class="fa-solid fa-minus"></i></button>
+                                <span class="qty-val">0</span>
+                                <button class="btn-qty plus" onclick="updateQty(this, 1)"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FLOATING CART BAR -->
+    <div class="cart-bar" id="cartBar">
+        <div class="cart-info">
+            <div class="cart-icon">
+                <i class="fa-solid fa-basket-shopping"></i>
+                <span class="cart-badge" id="totalQtyBadge">0</span>
+            </div>
+            <div class="cart-details">
+                <span class="cart-count-text" id="cartCountText">0 Menu Dipilih</span>
+                <span class="cart-total-price" id="cartTotalPrice">Rp 0</span>
+            </div>
+        </div>
+        <button class="btn-checkout-multi" onclick="checkoutMultipleProducts()">
+            <i class="fa-brands fa-whatsapp"></i> Pesan Semua
+        </button>
+    </div>
+
+    <script>
+        const cart = {};
+        const phoneNumber = "6285704635510";
+
+        function checkoutSingleProduct(name, price) {
+            let message = `Halo, saya mau beli 1 porsi produk berikut:\n\n- *${name}* (1x) : Rp ${price.toLocaleString('id-ID')}\n\n*Total: Rp ${price.toLocaleString('id-ID')}*\n\nMohon diproses ya, terima kasih!`;
+            let encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+        }
+
+        function updateQty(btn, amount) {
+            const card = btn.closest('.card');
+            const itemName = card.getAttribute('data-name');
+            const itemPrice = parseInt(card.getAttribute('data-price'));
+            const qtySpan = card.querySelector('.qty-val');
+            
+            let currentQty = parseInt(qtySpan.innerText) + amount;
+            if (currentQty < 0) currentQty = 0;
+
+            qtySpan.innerText = currentQty;
+
+            if (currentQty > 0) {
+                cart[itemName] = {
+                    qty: currentQty,
+                    price: itemPrice,
+                    subtotal: currentQty * itemPrice
+                };
+            } else {
+                delete cart[itemName];
+            }
+
+            calculateCart();
+        }
+
+        function calculateCart() {
+            let totalQty = 0;
+            let totalPrice = 0;
+
+            for (let key in cart) {
+                totalQty += cart[key].qty;
+                totalPrice += cart[key].subtotal;
+            }
+
+            document.getElementById('totalQtyBadge').innerText = totalQty;
+            document.getElementById('cartCountText').innerText = `${totalQty} Porsi Dipilih`;
+            document.getElementById('cartTotalPrice').innerText = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+        }
+
+        function checkoutMultipleProducts() {
+            let totalQty = 0;
+            let totalPrice = 0;
+            let itemsText = "";
+
+            for (let key in cart) {
+                totalQty += cart[key].qty;
+                totalPrice += cart[key].subtotal;
+                itemsText += `- ${key} (${cart[key].qty}x) : Rp ${cart[key].subtotal.toLocaleString('id-ID')}\n`;
+            }
+
+            if (totalQty === 0) {
+                alert("Silakan pilih porsi menu (+ / -) terlebih dahulu jika ingin pesan beberapa produk sekaligus.");
+                return;
+            }
+
+            let message = `Halo, saya mau memesan beberapa menu berikut:\n\n${itemsText}\n*Total Pembayaran: Rp ${totalPrice.toLocaleString('id-ID')}*\n\nMohon segera diproses, terima kasih!`;
+
+            let encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+        }
+
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const filterText = this.value.toLowerCase();
+            const cards = document.querySelectorAll('.card');
+
+            cards.forEach(card => {
+                const title = card.querySelector('.card-title').innerText.toLowerCase();
+                const desc = card.querySelector('.card-desc').innerText.toLowerCase();
+
+                if (title.includes(filterText) || desc.includes(filterText)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
